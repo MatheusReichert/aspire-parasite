@@ -1,9 +1,13 @@
-$configs = @(
-    @{ Label = "A + B + C  (all services)"; File = "apphost.cs" }
-    @{ Label = "A + B"; File = "apphost-ab.cs" }
-    @{ Label = "B + C"; File = "apphost-bc.cs" }
-    @{ Label = "A + C"; File = "apphost-ac.cs" }
-)
+function Get-Label($filename) {
+    $name = [System.IO.Path]::GetFileNameWithoutExtension($filename)
+    if ($name -eq "apphost") { return "All services" }
+    $suffix = $name -replace "^apphost-", ""
+    return ($suffix.ToCharArray() | ForEach-Object { $_.ToString().ToUpper() }) -join " + "
+}
+
+$configs = Get-ChildItem -Path $PSScriptRoot -Filter "apphost*.cs" |
+    Sort-Object Name |
+    ForEach-Object { @{ Label = Get-Label $_.Name; File = $_.Name } }
 
 Write-Host ""
 Write-Host "  Aspire Parasite - Orchestration Selector" -ForegroundColor Cyan
