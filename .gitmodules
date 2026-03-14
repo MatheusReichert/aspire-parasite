@@ -1,0 +1,9 @@
+[submodule "A"]
+	path = A
+	url = https://github.com/MatheusReichert/aspire-parasite-A.git
+[submodule "B"]
+	path = B
+	url = https://github.com/MatheusReichert/aspire-parasite-B.git
+[submodule "C"]
+	path = C
+	url = https://github.com/MatheusReichert/aspire-parasite-C.git
