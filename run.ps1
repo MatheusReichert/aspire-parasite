@@ -2,7 +2,7 @@ function Get-Label($filename) {
     $name = [System.IO.Path]::GetFileNameWithoutExtension($filename)
     if ($name -eq "apphost") { return "All services" }
     $suffix = $name -replace "^apphost-", ""
-    return ($suffix.ToCharArray() | ForEach-Object { $_.ToString().ToUpper() }) -join " + "
+    return ($suffix -split "-" | ForEach-Object { $_.ToUpper() }) -join " + "
 }
 
 $configs = Get-ChildItem -Path $PSScriptRoot -Filter "apphost*.cs" |
